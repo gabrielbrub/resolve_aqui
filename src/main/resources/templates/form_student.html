@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Cadastrar</title>
+    <div th:replace="~{base :: head}"></div>
+</head>
+<body>
+<div th:replace="~{base :: logo-no-logout}"></div>
+
+
+<form  th:object="${student}" method="POST" action="/student/new" class="login-form">
+        <div class="form-group" >
+            <label for="nome">Nome completo</label>
+            <input th:errorclass="is-invalid" th:field="*{username}" type="text" class="form-control" id="nome" placeholder="Nome completo">
+            <div class="invalid-feedback" th:errors="*{username}">
+                Erros do nome de usuário
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="registration">Matrícula</label>
+            <input th:field="*{registration}" th:errorclass="is-invalid" type="text" class="form-control" id="registration" placeholder="Matricula">
+            <div class="invalid-feedback" th:errors="*{registration}">
+                Erros de registration
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" th:errorclass="is-invalid" th:field="*{email}" class="form-control" id="email" placeholder="Enter email">
+            <div class="invalid-feedback" th:errors="*{email}">
+                Erros do email
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" th:errorclass="is-invalid" th:field="*{password}" class="form-control" id="password" placeholder="Senha">
+            <div class="invalid-feedback" th:errors="*{password}">
+                Erros da senha
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</body>
+</html>

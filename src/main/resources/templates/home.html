@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <div th:replace="~{base :: head}"></div>
+    <title>Home</title>
+</head>
+<header>
+    <div th:replace="~{base :: logo-no-logout}"></div>
+</header>
+<body>
+
+    <div class="d-flex justify-content-center flex-column">
+        <div class="jumbotron jumbotron-fluid" style="margin: auto">
+            <h1 class="display-6">Bem-vindo ao portal Resolve Aqui</h1>
+        </div>
+        <div class="d-flex flex-row" style="margin: auto">
+            <button class="btn btn-outline-primary" th:onclick="document.querySelector('#login-student').submit()">Aluno</button>
+            <form id="login-student" th:action="@{/student/login}" method="get"></form>
+            <button style="margin-left: 5%" class="btn btn-outline-secondary" th:onclick="document.querySelector('#login-agent').submit()" >Agente</button>
+            <form id="login-agent" th:action="@{/agent/login}" method="get"></form>
+        </div>
+    </div>
+</body>
+</html>

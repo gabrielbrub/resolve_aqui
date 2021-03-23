@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo ticket</title>
+    <div th:replace="~{base :: head}"></div>
+</head>
+<header>
+    <title>Criar ticket</title>
+    <div th:replace="~{base :: logo-al}"></div>
+</header>
+<body>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <h1 class="display-5">Novo Ticket</h1>
+        </div>
+        <form  th:object="${ticket}" method="post" class="ticket-form" th:action="@{/ticket/save_ticket}">
+            <div class="form-group">
+                <label for="subject">Titulo</label>
+                <input type="text" th:errorclass="is-invalid" class="form-control" th:field="*{subject}" id="subject" aria-describedby="emailHelp" placeholder="Titulo">
+                <div class="invalid-feedback" th:errors="*{subject}">
+                    Erros de assunto
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="message">Mensagem</label>
+                <textarea th:field="*{message}" th:errorclass="is-invalid" class="form-control" id="message"></textarea>
+                <div class="invalid-feedback" th:errors="*{message}">
+                    Erros de mensagem
+                </div>
+            </div>
+            <label for="selecao">Setor: </label>
+            <select id="selecao" th:field="*{sector}">
+                <option th:each="sector : ${sectors}" th:value="${sector}" th:text="${sector}"></option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 1% 35%;
+}
+
+header a {
+    text-decoration: none;
+    color: inherit;
+}
+header a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+header a:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+header  a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.logo-container {
+    background-color: blue;
+    color: #FFF;
+}
+
+.logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+}
+
+
+.descricao{
+    flex-grow: 2.5;
+}
+.data{
+    flex-grow:1;
+}
+
+
+form .btn-primary{
+    margin-right: 70%;
+    margin-top: 8px;
+}
+
+form select{
+    margin-top: 8px;
+}
+
+.ticket-form{
+    margin-right: 50%;
+}
+
+
+@media(max-width: 768px){
+    .login-form{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin: 5% 5%;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin: 5% 5%;
+    }
+
+}

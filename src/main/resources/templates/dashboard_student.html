@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <div th:replace="~{base :: head}"></div>
+</head>
+    <header id="oi">
+        <div  th:replace="~{base :: logo-al}"></div>
+    </header>
+    <body>
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid d-flex justify-content-between align-content-end">
+                <h1 class="display-4">Tickets</h1>
+                <div>
+                    <p th:text="'Aluno: ' + ${nome}"></p>
+                    <p th:text="'Matrícula: ' + ${registration}"></p>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3 overflow-auto">
+                <div class="navbar-nav">
+                    <a th:classappend="${status} == null ? 'active'" class="nav-item nav-link" href="/student/dashboard">Todos</a>
+                    <a th:classappend="${status} == 'ABERTO' ? 'active'" class="nav-item nav-link" href="/student/dashboard/aberto">Aberto</a>
+                    <a th:classappend="${status} == 'EM_ANDAMENTO' ? 'active'" class="nav-item nav-link" href="/student/dashboard/em_andamento">Em andamento</a>
+                    <a th:classappend="${status} == 'FINALIZADO' ? 'active'" class="nav-item nav-link" href="/student/dashboard/finalizado">Finalizado</a>
+                </div>
+                <a href="/ticket/form_ticket"><button class="btn btn-outline-secondary my-2 my-sm-0 mx-2">Novo</button></a>
+            </nav>
+            <div th:each="ticket : ${tickets}" class="card mb-3" >
+                <th:block th:switch="${ticket.status.name()}">
+                    <div th:case="'ABERTO'" class="card-header alert-warning" th:text="'Ticket '+ ${ticket.getId()}">Nome do Produto</div>
+                    <div th:case="'EM_ANDAMENTO'" class="card-header alert-success" th:text="'Ticket '+ ${ticket.getId()}">Nome do Produto</div>
+                    <div th:case="'FINALIZADO'" class="card-header alert-dark" th:text="'Ticket '+ ${ticket.getId()}">Nome do Produto</div>
+                </th:block>
+                <div class="card-body">
+                    <div class="d-flex mb-3 flex-wrap justify-content-md-between">
+                        <div th:text="${'Assunto: ' + ticket.subject}" class="descricao">Assunto: </div>
+                        <div th:text="${'Data: ' + ticket.creationDate}" class="data">Data: </div>
+                        <a th:href="@{/ticket/{id}(id=${ticket.id})}"><button type="button" class="btn btn-primary">Acessar</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

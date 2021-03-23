@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <title>Ticket</title>
+    <div th:replace="~{base :: head}"></div>
+</head>
+<style>
+    .botoes{
+        display: flex;
+        flex-direction: row;
+    }
+    html, body
+    {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+</style>
+<header>
+    <div th:replace="~{base :: logo-ag}"></div>
+</header>
+<body>
+
+    <div class="container" style="height: 100%">
+        <div class="overflow-auto d-flex flex-column-reverse" style="max-height:50%">
+            <div>
+                <div class="d-flex flex-column justify-content-end" th:each="message : ${ticket.messages}" style="width: 100%;">
+                    <div th:classappend="${username} == ${message.author.getUsername()} ? 'align-self-end : align-self-start'" class="card p-2 mt-2" style="width: 70%;">
+                            <div th:text="${message.text}" class="card-body">
+                                Um texto de mensagem 1
+                            </div>
+                            <div class="card-footer text-muted small d-flex justify-content-between">
+                                <a th:text="${message.author.username}"></a>
+                                <a th:text="${#temporals.format(message.sendDate, 'dd-MM-yyyy HH:mm')}"></a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <form th:action="@{'/ticket/' + ${ticket.id} + '/send'}" method="post" th:object="${message}" id="form-send">
+                <textarea th:if="${ticket.status.name()} != 'FINALIZADO'" th:field="*{text}" class="mt-2" style="width: 50%" >Escreva aqui sua mensagem...</textarea>
+            </form>
+            <div class="botoes">
+                <button sec:authorize="hasRole('ADMIN')" th:if="${ticket.status.name()} != 'FINALIZADO'" th:onclick="document.querySelector('#form-send').submit()" class="btn btn-primary" id="responder">Responder</button>
+                <button th:onclick="document.querySelector('#form-close').submit()"
+                        th:if="${ticket.status.name()} != 'FINALIZADO'"
+                        class="btn btn-danger" sec:authorize="hasRole('ADMIN')" id="finalizar" style="margin-left:6px">Finalizar</button>
+                <form id="form-close" th:action="@{'/ticket/' + ${ticket.id} + '/close'}" method="post"></form>
+            </div>
+    </div>
+</body>
+</html>
